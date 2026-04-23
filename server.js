@@ -19,6 +19,9 @@ const createRouter  = require('./index');
 const app    = express();
 const server = http.createServer(app);
 
+// Trust proxy for Render (and other proxy-based hosting)
+app.set('trust proxy', 1);
+
 // ── Socket.io ────────────────────────────────────────────────────────────────
 const io = new Server(server, {
   cors: {

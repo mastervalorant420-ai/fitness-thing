@@ -20,6 +20,12 @@ pool.on('error', (err) => {
   process.exit(1);
 });
 
+// Validate DATABASE_URL on startup
+if (!process.env.DATABASE_URL) {
+  console.error('[db] ERROR: DATABASE_URL environment variable is not set');
+  process.exit(1);
+}
+
 /**
  * Thin helper that runs a single query and returns its result rows.
  * @param {string} text   Parameterised SQL string

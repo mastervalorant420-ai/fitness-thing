@@ -85,14 +85,14 @@ const authLimiter = rateLimit({
 });
 app.use('/auth', authLimiter);
 
-// ── Routes ────────────────────────────────────────────────────────────────────
-// Inject the `io` instance so route handlers can emit events
-app.use('/', createRouter(io));
-
 // ── Health check (useful for load-balancer probes) ────────────────────────────
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', ts: new Date().toISOString() });
 });
+
+// ── Routes ────────────────────────────────────────────────────────────────────
+// Inject the `io` instance so route handlers can emit events
+app.use('/', createRouter(io));
 
 // ── 404 handler ───────────────────────────────────────────────────────────────
 app.use((_req, res) => {
